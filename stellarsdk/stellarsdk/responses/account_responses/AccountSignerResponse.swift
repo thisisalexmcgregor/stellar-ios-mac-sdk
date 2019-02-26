@@ -14,9 +14,6 @@ import Foundation
 ///  Currently there are three flags, used by issuers of assets: Authorization required, Authorization revocable and Authorization immutable.
 public class AccountSignerResponse: NSObject, Decodable {
     
-    /// Public key of the signer / account id.
-    public var publicKey:String
-    
     /// The signature weight of the public key of the signer.
     public var weight:Int
     
@@ -28,7 +25,6 @@ public class AccountSignerResponse: NSObject, Decodable {
     
      // Properties to encode and decode
     enum CodingKeys: String, CodingKey {
-        case publicKey = "public_key"
         case weight
         case key
         case type
@@ -42,7 +38,6 @@ public class AccountSignerResponse: NSObject, Decodable {
     public required init(from decoder: Decoder) throws {
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        publicKey = try values.decode(String.self, forKey: .publicKey)
         weight = try values.decode(Int.self, forKey: .weight)
         key = try values.decodeIfPresent(String.self, forKey: .key)
         type = try values.decodeIfPresent(String.self, forKey: .type)
