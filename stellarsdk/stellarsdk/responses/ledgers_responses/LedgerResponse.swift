@@ -29,15 +29,12 @@ public class LedgerResponse: NSObject, Decodable {
     
     /// Sequence number of this ledger, suitable for use as the as the :id parameter for url templates that require a ledger number.
     public var sequenceNumber:Int64
-
-    /// The number of transactions in this ledger.
-    public var transactionCount:Int?
-
-    /// The number of successful transactions in this ledger.
-    public var successfulTransactionCount:Int?
-
+    
+    /// The number successful of transactions in this ledger.
+    public var successfulTransactionCount: Int
+    
     /// The number of failed transactions in this ledger.
-    public var failedTransactionCount:Int?
+    public var failedTransactionCount: Int
     
     /// The number of operations in this ledger.
     public var operationCount:Int
@@ -53,7 +50,7 @@ public class LedgerResponse: NSObject, Decodable {
     
     /// The fee the network charges per operation in a transaction.
     public var baseFeeInStroops:Int?
-
+    
     /// The reserve the network uses when calculating an account’s minimum balance.
     public var baseReserveInStroops:Int?
     
@@ -86,9 +83,9 @@ public class LedgerResponse: NSObject, Decodable {
     }
     
     /**
-        Initializer - creates a new instance by decoding from the given decoder.
+     Initializer - creates a new instance by decoding from the given decoder.
      
-        - Parameter decoder: The decoder containing the data
+     - Parameter decoder: The decoder containing the data
      */
     public required init(from decoder: Decoder) throws {
         
@@ -99,9 +96,8 @@ public class LedgerResponse: NSObject, Decodable {
         hashXdr = try values.decode(String.self, forKey: .hashXdr)
         previousHashXdr = try values.decodeIfPresent(String.self, forKey: .previousHashXdr)
         sequenceNumber = try values.decode(Int64.self, forKey: .sequenceNumber)
-        transactionCount = try values.decodeIfPresent(Int.self, forKey: .transactionCount) ?? 0
-        successfulTransactionCount = try values.decodeIfPresent(Int.self, forKey: .successfulTransactionCount)
-        failedTransactionCount = try values.decodeIfPresent(Int.self, forKey: .failedTransactionCount)
+        successfulTransactionCount = try values.decode(Int.self, forKey: .successfulTransactionCount)
+        failedTransactionCount = try values.decode(Int.self, forKey: .failedTransactionCount)
         operationCount = try values.decode(Int.self, forKey: .operationCount)
         closedAt = try values.decode(Date.self, forKey: .closedAt)
         totalCoins = try values.decode(String.self, forKey: .totalCoins)
