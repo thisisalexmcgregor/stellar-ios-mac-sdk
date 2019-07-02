@@ -17,7 +17,7 @@ public class AccountSignerResponse: NSObject, Decodable {
     /// The signature weight of the public key of the signer.
     public var weight:Int
     
-    /// Not sure about this key.
+    /// Key representing the signer that can be different depending on the signer's type.
     public var key:String?
     
     /// Type of the key e.g. ed25519_public_key
@@ -36,7 +36,6 @@ public class AccountSignerResponse: NSObject, Decodable {
         - Parameter decoder: The decoder containing the data
      */
     public required init(from decoder: Decoder) throws {
-        
         let values = try decoder.container(keyedBy: CodingKeys.self)
         weight = try values.decode(Int.self, forKey: .weight)
         key = try values.decodeIfPresent(String.self, forKey: .key)

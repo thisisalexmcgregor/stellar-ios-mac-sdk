@@ -618,6 +618,18 @@
 		8331520B203E2635007F8F84 /* TransactionsLocalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83315209203E2634007F8F84 /* TransactionsLocalTestCase.swift */; };
 		8331520C203E2635007F8F84 /* TransactionsResponsesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331520A203E2635007F8F84 /* TransactionsResponsesMock.swift */; };
 		833152132040CAAF007F8F84 /* StellarSDKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833152122040CAAF007F8F84 /* StellarSDKLog.swift */; };
+		83379C1F2280AAF500BD5F8E /* ManageSellOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C1E2280AAF500BD5F8E /* ManageSellOfferOperation.swift */; };
+		83379C212280ABA600BD5F8E /* ManageBuyOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C202280ABA600BD5F8E /* ManageBuyOfferOperation.swift */; };
+		83379C232280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C222280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift */; };
+		83379C252280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C242280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift */; };
+		83379C272280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C262280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift */; };
+		83379C282280BE2A00BD5F8E /* ManageSellOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C1E2280AAF500BD5F8E /* ManageSellOfferOperation.swift */; };
+		83379C292280BE2A00BD5F8E /* ManageBuyOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C202280ABA600BD5F8E /* ManageBuyOfferOperation.swift */; };
+		83379C2A2280BE2A00BD5F8E /* ManageSellOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C222280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift */; };
+		83379C2B2280BE2A00BD5F8E /* ManageBuyOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C242280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift */; };
+		83379C2C2280BE2A00BD5F8E /* CreatePassiveSellOfferOperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C262280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift */; };
+		83379C2E2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C2D2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift */; };
+		83379C2F2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83379C2D2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift */; };
 		833CBF8A2033510D00C23CFE /* DecoratedSignatureXDR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CBF892033510D00C23CFE /* DecoratedSignatureXDR.swift */; };
 		833CBF8C2033514C00C23CFE /* OperationMetaXDR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CBF8B2033514C00C23CFE /* OperationMetaXDR.swift */; };
 		833CBF8E203351B200C23CFE /* TimeBoundsXDR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CBF8D203351B200C23CFE /* TimeBoundsXDR.swift */; };
@@ -1092,6 +1104,12 @@
 		83315209203E2634007F8F84 /* TransactionsLocalTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsLocalTestCase.swift; sourceTree = "<group>"; };
 		8331520A203E2635007F8F84 /* TransactionsResponsesMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsResponsesMock.swift; sourceTree = "<group>"; };
 		833152122040CAAF007F8F84 /* StellarSDKLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StellarSDKLog.swift; sourceTree = "<group>"; };
+		83379C1E2280AAF500BD5F8E /* ManageSellOfferOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSellOfferOperation.swift; sourceTree = "<group>"; };
+		83379C202280ABA600BD5F8E /* ManageBuyOfferOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBuyOfferOperation.swift; sourceTree = "<group>"; };
+		83379C222280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSellOfferOperationResponse.swift; sourceTree = "<group>"; };
+		83379C242280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBuyOfferOperationResponse.swift; sourceTree = "<group>"; };
+		83379C262280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePassiveSellOfferOperationResponse.swift; sourceTree = "<group>"; };
+		83379C2D2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePassiveSellOfferOperation.swift; sourceTree = "<group>"; };
 		833CBF892033510D00C23CFE /* DecoratedSignatureXDR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratedSignatureXDR.swift; sourceTree = "<group>"; };
 		833CBF8B2033514C00C23CFE /* OperationMetaXDR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMetaXDR.swift; sourceTree = "<group>"; };
 		833CBF8D203351B200C23CFE /* TimeBoundsXDR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBoundsXDR.swift; sourceTree = "<group>"; };
@@ -1760,7 +1778,10 @@
 				744C4DBE202A29E400B46CDE /* AccountCreatedOperationResponse.swift */,
 				8369723F202A784200398A98 /* PaymentOperationResponse.swift */,
 				83697241202A79DC00398A98 /* PathPaymentOperationResponse.swift */,
+				83379C222280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift */,
+				83379C242280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift */,
 				83697243202A7AF500398A98 /* ManageOfferOperationResponse.swift */,
+				83379C262280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift */,
 				83697245202A7C4B00398A98 /* CreatePassiveOfferOperationResponse.swift */,
 				83697247202A7CD100398A98 /* SetOptionsOperationResponse.swift */,
 				83697249202A7F0A00398A98 /* ChangeTrustOperationResponse.swift */,
@@ -2098,7 +2119,10 @@
 				833CBFD62036F01700C23CFE /* CreateAccountOperation.swift */,
 				833CBFD82036F19000C23CFE /* PaymentOperation.swift */,
 				833CBFDA2036F1E400C23CFE /* PathPaymentOperation.swift */,
+				83379C1E2280AAF500BD5F8E /* ManageSellOfferOperation.swift */,
+				83379C202280ABA600BD5F8E /* ManageBuyOfferOperation.swift */,
 				833CBFDC2036F2B500C23CFE /* ManageOfferOperation.swift */,
+				83379C2D2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift */,
 				833CBFDE2036F46100C23CFE /* CreatePassiveOfferOperation.swift */,
 				833CBFE02036F4CF00C23CFE /* SetOptionsOperation.swift */,
 				833CBFE22036F6D500C23CFE /* ChangeTrustOperation.swift */,
@@ -2545,6 +2569,7 @@
 			buildConfigurationList = 7445EA10201B106500470E0A /* Build configuration list for PBXNativeTarget "stellarsdk" */;
 			buildPhases = (
 				7445E9F7201B106500470E0A /* Sources */,
+				C5D13C1F224B103C00F0CD2E /* Verify Podspec Version Matches */,
 				7445E9F8201B106500470E0A /* Frameworks */,
 				7445E9F9201B106500470E0A /* Headers */,
 				7445E9FA201B106500470E0A /* Resources */,
@@ -2701,11 +2726,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C5D13C1F224B103C00F0CD2E /* Verify Podspec Version Matches */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Verify Podspec Version Matches";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INFO_PLIST=\"${SRCROOT}/stellarsdk/Info\"\nSDK_VERSION=\"$(defaults read $INFO_PLIST CFBundleShortVersionString)\"\nPODSPEC_VERSION=`grep 's.version' ${SRCROOT}/../stellar-ios-mac-sdk.podspec | head -n1 | grep -o '\".*\"' | sed 's/\"//g'`\n\nif [ \"${PODSPEC_VERSION}\" != \"${SDK_VERSION}\" ] ; then\n    echo \"error: Podspec version does not match bundle version. Please update the Info.plist file with the correct version.\"\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		743DF4E0201F130100713DE7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83379C282280BE2A00BD5F8E /* ManageSellOfferOperation.swift in Sources */,
+				83379C292280BE2A00BD5F8E /* ManageBuyOfferOperation.swift in Sources */,
+				83379C2A2280BE2A00BD5F8E /* ManageSellOfferOperationResponse.swift in Sources */,
+				83379C2B2280BE2A00BD5F8E /* ManageBuyOfferOperationResponse.swift in Sources */,
+				83379C2C2280BE2A00BD5F8E /* CreatePassiveSellOfferOperationResponse.swift in Sources */,
 				745DF55D2052FFF6000D3660 /* add_scalar.c in Sources */,
 				745DF55E2052FFF6000D3660 /* fe.c in Sources */,
 				7467C4112142B48200412FE1 /* CustomerInformationNeededNonInteractive.swift in Sources */,
@@ -2851,6 +2902,7 @@
 				745DF46C2052FF9B000D3660 /* TradeResponse.swift in Sources */,
 				745DF46D2052FF9B000D3660 /* TransactionResponse.swift in Sources */,
 				744FC6EF212D3CCD00ADFC88 /* Serialize.swift in Sources */,
+				83379C2F2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift in Sources */,
 				7468CDCE2136C4F5002A538D /* BumpSequenceOperationResponse.swift in Sources */,
 				745DF46E2052FF9B000D3660 /* SubmitTransactionResponse.swift in Sources */,
 				745DF46F2052FF9B000D3660 /* TransactionResultXDR.swift in Sources */,
@@ -3188,6 +3240,7 @@
 				EC34A12A20503CC5000FB042 /* ChaCha20+Foundation.swift in Sources */,
 				744A84BA2143F6DA0086B8FC /* AnchorInfoResponse.swift in Sources */,
 				7481B5402024A419000A783E /* Order.swift in Sources */,
+				83379C232280AE2900BD5F8E /* ManageSellOfferOperationResponse.swift in Sources */,
 				F80CE5452084EFC400AB5FF0 /* UtilBase32.swift in Sources */,
 				F80CE5462084EFC400AB5FF0 /* StringExtension.swift in Sources */,
 				EC34A0CB20503CAB000FB042 /* WordList.swift in Sources */,
@@ -3218,6 +3271,7 @@
 				743DF56C2020530A00713DE7 /* fe.c in Sources */,
 				8357A913203B004700A144A9 /* String+Base64.swift in Sources */,
 				833CBF942033529000C23CFE /* OperationBodyXDR.swift in Sources */,
+				83379C252280AE9C00BD5F8E /* ManageBuyOfferOperationResponse.swift in Sources */,
 				EC34A12120503CC5000FB042 /* Collection+Extension.swift in Sources */,
 				833CBFED2038F9BC00C23CFE /* Transaction.swift in Sources */,
 				744A84CE214523910086B8FC /* PutCustomerInfoRequest.swift in Sources */,
@@ -3292,6 +3346,7 @@
 				EC34A11920503CC5000FB042 /* Cryptors.swift in Sources */,
 				833CBF8E203351B200C23CFE /* TimeBoundsXDR.swift in Sources */,
 				7481B53E20248441000A783E /* EffectsService.swift in Sources */,
+				83379C2E2280CF9C00BD5F8E /* CreatePassiveSellOfferOperation.swift in Sources */,
 				7468CDD02136D8AC002A538D /* BumpSequenceOperationXDR.swift in Sources */,
 				744FC6EE212D3CCD00ADFC88 /* Serialize.swift in Sources */,
 				833CBFF120395FD000C23CFE /* SubmitTransactionResponse.swift in Sources */,
@@ -3327,10 +3382,12 @@
 				EC34A14F20503CC5000FB042 /* PCBC.swift in Sources */,
 				EC34A11720503CC5000FB042 /* AES.swift in Sources */,
 				744C4DB9202A27D000B46CDE /* OperationsFactory.swift in Sources */,
+				83379C272280B64500BD5F8E /* CreatePassiveSellOfferOperationResponse.swift in Sources */,
 				EC34A15520503CC5000FB042 /* Array+Extension.swift in Sources */,
 				833CBF8C2033514C00C23CFE /* OperationMetaXDR.swift in Sources */,
 				7464B72B219442E90029FDC8 /* PointOfContactDocumentation.swift in Sources */,
 				83DD2C98202F249800713FEE /* PaymentsService.swift in Sources */,
+				83379C212280ABA600BD5F8E /* ManageBuyOfferOperation.swift in Sources */,
 				7467C3F121424D9E00412FE1 /* TransferServerService.swift in Sources */,
 				744FC6FC212D545C00ADFC88 /* ResolveAddressResponse.swift in Sources */,
 				EC34A12020503CC5000FB042 /* UInt16+Extension.swift in Sources */,
@@ -3423,6 +3480,7 @@
 				8369722E2028F7A000398A98 /* OfferRemovedEffectResponse.swift in Sources */,
 				7464B725219442900029FDC8 /* AccountInformation.swift in Sources */,
 				830EFC7B203252B100607C35 /* TrustlineEntryXDR.swift in Sources */,
+				83379C1F2280AAF500BD5F8E /* ManageSellOfferOperation.swift in Sources */,
 				EC34A12C20503CC5000FB042 /* AES+Foundation.swift in Sources */,
 				83697252202A80D600398A98 /* ManageDataOperationResponse.swift in Sources */,
 				EC34A0CE20503CAB000FB042 /* HDCrypto.swift in Sources */,
@@ -3624,7 +3682,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/osx $(SRCROOT)/stellarsdk/libs/ed25519-C/**";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -3649,7 +3706,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/osx";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -3667,7 +3723,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdk-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -3685,7 +3740,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdk-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -3699,7 +3753,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3714,7 +3767,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3730,7 +3782,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -3747,7 +3798,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -3763,7 +3813,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "stellarsdkTests-Host";
 			};
@@ -3779,7 +3828,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "stellarsdkTests-Host";
 			};
@@ -3840,6 +3888,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3892,6 +3941,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -3920,7 +3970,6 @@
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3946,7 +3995,6 @@
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3962,7 +4010,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soneso.stellarsdkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -3979,7 +4026,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soneso.stellarsdkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -4040,6 +4086,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG XC9";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -4067,7 +4114,6 @@
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/iphone";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/simulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug - Xcode 9";
@@ -4083,7 +4129,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soneso.stellarsdkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -4110,7 +4155,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/osx $(SRCROOT)/stellarsdk/libs/ed25519-C/**";
-				SWIFT_VERSION = 4.2;
 			};
 			name = "Debug - Xcode 9";
 		};
@@ -4128,7 +4172,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdk-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = "Debug - Xcode 9";
 		};
@@ -4142,7 +4185,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug - Xcode 9";
@@ -4158,7 +4200,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -4174,7 +4215,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "stellarsdkTests-Host";
 			};
@@ -4228,6 +4268,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = XC9;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4255,7 +4296,6 @@
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/libs/ed25519-C/**";
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/iphone";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/simulator";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release - Xcode 9";
@@ -4271,7 +4311,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soneso.stellarsdkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -4298,7 +4337,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/stellarsdk/libs/ed25519-C/** $(SRCROOT)/stellarsdk/osx";
-				SWIFT_VERSION = 4.2;
 			};
 			name = "Release - Xcode 9";
 		};
@@ -4316,7 +4354,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdk-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = "Release - Xcode 9";
 		};
@@ -4330,7 +4367,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release - Xcode 9";
@@ -4346,7 +4382,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stellarsdkTests-Host.app/stellarsdkTests-Host";
 			};
@@ -4362,7 +4397,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soneso.stellarsdkTests-HostUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "stellarsdkTests-Host";
 			};

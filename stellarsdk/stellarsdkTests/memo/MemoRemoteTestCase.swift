@@ -11,6 +11,7 @@ import stellarsdk
 
 class MemoRemoteTestCase: XCTestCase {
     let sdk = StellarSDK()
+    var streamItem:TransactionsStreamItem? = nil
     
     override func setUp() {
         super.setUp()
@@ -71,16 +72,19 @@ class MemoRemoteTestCase: XCTestCase {
         let expectation = XCTestExpectation(description: "Memo with payment transaction sent and received")
         
         do {
-            let sourceAccountKeyPair = try KeyPair(secretSeed:"SA3QF6XW433CBDLUEY5ZAMHYJLJNH4GOPASLJLO4QKH75HRRXZ3UM2YJ")
-            let destinationAccountKeyPair = try KeyPair(accountId: "GCKECJ5DYFZUX6DMTNJFHO2M4QKTUO5OS5JZ4EIIS7C3VTLIGXNGRTRC")
+            let sourceAccountKeyPair = try KeyPair(secretSeed:"SBA2XQ5SRUW5H3FUQARMC6QYEPUYNSVCMM4PGESGVB2UIFHLM73TPXXF")
+            let destinationAccountKeyPair = try KeyPair(accountId: "GDKNTVRFEEQQUFQHT65J4IITT55GO22E23TBZBAF3LWNOT6U44QWHAQB")
             
-            sdk.transactions.stream(for: .transactionsForAccount(account: sourceAccountKeyPair.accountId, cursor: "now")).onReceive { (response) -> (Void) in
+            streamItem = sdk.transactions.stream(for: .transactionsForAccount(account: sourceAccountKeyPair.accountId, cursor: "now"))
+            streamItem?.onReceive { (response) -> (Void) in
                 switch response {
                 case .open:
                     break
                 case .response(_, let response):
                     if response.memoType == memo.type(), response.memo == memo {
                         XCTAssert(true)
+                        self.streamItem?.closeStream()
+                        self.streamItem = nil
                         expectation.fulfill()
                     }
                 case .error(let error):
@@ -131,7 +135,7 @@ class MemoRemoteTestCase: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 30.0)
+        wait(for: [expectation], timeout: 15.0)
     }
 
     func testMaxLengthMemoText() {

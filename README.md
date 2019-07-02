@@ -19,7 +19,7 @@ To integrate stellar SDK into your Xcode project using CocoaPods, specify it in 
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'stellar-ios-mac-sdk', '~> 1.5.6'
+    pod 'stellar-ios-mac-sdk', '~> 1.6.4'
 end
 ```
 
@@ -243,8 +243,16 @@ You can use the parameters:`limit`, `order`, and `cursor` to customize the query
 
 Horizon has SSE support for push data. You can use it like this:
 
+first define your stream item somwhere to be able to hold the reference:
 ```swift
-sdk.payments.stream(for: .paymentsForAccount(account: destinationAccountKeyPair.accountId, cursor: nil)).onReceive { (response) -> (Void) in
+var streamItem:OperationsStreamItem? = nil
+```
+
+then create, assign and use it:
+```swift
+streamItem = sdk.payments.stream(for: .paymentsForAccount(account: destinationAccountKeyPair.accountId, cursor: nil))
+
+streamItem?.onReceive { (response) -> (Void) in
     switch response {
     case .open:
         break
@@ -262,6 +270,13 @@ sdk.payments.stream(for: .paymentsForAccount(account: destinationAccountKeyPair.
     }
 }
 ```
+
+later you can close the stream item:
+
+```swift
+streamItem.close()
+```
+
 #### 3.3 Check others
 
 Just like payments, you you check `assets`, `transactions`, `effects`, `offers`, `operations`, `ledgers` etc.  by:
@@ -581,11 +596,12 @@ Another open source project that uses our SDK is the [BlockEQ iOS wallet](https:
 
 ## Stellar Ecosystem Proposals (SEPs) implemented
 
-- [SEP-001](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) - Stellar Toml
-- [SEP-002](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md) - Federation protocol
-- [SEP-005](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0005.md) - Key Derivation Methods for Stellar Accounts
-- [SEP-006](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0006.md) - Anchor/Client interoperability
-- [SEP-007](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0007.md) - URI Scheme to facilitate delegated signing
+- [SEP-0001](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) - Stellar Toml
+- [SEP-0002](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md) - Federation protocol
+- [SEP-0005](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0005.md) - Key Derivation Methods for Stellar Accounts
+- [SEP-0006](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0006.md) - Anchor/Client interoperability
+- [SEP-0007](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0007.md) - URI Scheme to facilitate delegated signing
+- [SEP-0009](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0009.md) - Standard KYC / AML fields
 - [SEP-0010](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md) - Stellar Web Authentication
 - [SEP-0012](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0012.md) - Anchor/Client customer info transfer
 

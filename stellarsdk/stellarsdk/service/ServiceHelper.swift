@@ -27,6 +27,33 @@ typealias ResponseClosure = (_ response:Result) -> (Void)
 
 /// End class responsible with the HTTP connection to the Horizon server
 class ServiceHelper: NSObject {
+    static let HorizonClientVersionHeader = "X-Client-Version"
+    static let HorizonClientNameHeader = "X-Client-Name"
+    static let HorizonClientApplicationNameHeader = "X-App-Name"
+    static let HorizonClientApplicationVersionHeader = "X-App-Version"
+
+    lazy var horizonRequestHeaders: [String: String] = {
+        var headers: [String: String] = [:]
+
+        let mainBundle = Bundle.main
+        let frameworkBundle = Bundle(for: ServiceHelper.self)
+        
+        if let bundleIdentifier = frameworkBundle.infoDictionary?["CFBundleIdentifier"] as? String {
+            headers[ServiceHelper.HorizonClientNameHeader] = bundleIdentifier
+        }
+        if let bundleVersion = frameworkBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            headers[ServiceHelper.HorizonClientVersionHeader] = bundleVersion
+        }
+        if let applicationBundleID = mainBundle.infoDictionary?["CFBundleIdentifier"] as? String {
+            headers[ServiceHelper.HorizonClientApplicationNameHeader] = applicationBundleID
+        }
+        if let applicationBundleVersion = mainBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            headers[ServiceHelper.HorizonClientApplicationVersionHeader] = applicationBundleVersion
+        }
+
+        return headers
+    }()
+
     /// The url of the Horizon server to connect to
     internal let baseURL: String
     let jsonDecoder = JSONDecoder()
@@ -116,11 +143,15 @@ class ServiceHelper: NSObject {
     open func requestFromUrl(url: String, method: HTTPMethod, contentType:String? = nil, body:Data? = nil, completion: @escaping ResponseClosure) {
         let url = URL(string: url)!
         var urlRequest = URLRequest(url: url)
-        
+
+        horizonRequestHeaders.forEach {
+            urlRequest.addValue($0.value, forHTTPHeaderField: $0.key)
+        }
+
         if let contentType = contentType {
             urlRequest.addValue(contentType, forHTTPHeaderField: "Content-Type")
         }
-        
+
         switch method {
         case .get:
             break
