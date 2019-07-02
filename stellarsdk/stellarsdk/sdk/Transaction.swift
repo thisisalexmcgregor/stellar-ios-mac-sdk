@@ -12,7 +12,9 @@ import Foundation
 /// See [Stellar Guides] (https://www.stellar.org/developers/learn/concepts/transactions.html, "Transactions")
 public class Transaction {
     
-    public let baseFee = 100
+    public static let defaultBaseFee: Int = 100
+    
+    public let baseFee: Int
     public let fee:UInt32
     public let sourceAccount:TransactionAccount
     public let operations:[Operation]
@@ -30,10 +32,11 @@ public class Transaction {
     ///
     /// - Parameter sourceAccount: Account that originates the transaction.
     /// - Parameter operations: Transactions contain an arbitrary list of operations inside them. Typically there is just one operation, but it’s possible to have multiple. Operations are executed in order as one ACID transaction, meaning that either all operations are applied or none are.
+    /// - Parameter baseFee: The base fee in `stroop`s to use for this transaction
     /// - Parameter memo: Optional. The memo contains optional extra information. It is the responsibility of the client to interpret this value.
     /// - Parameter timeBounds: Optional. The UNIX timestamp, determined by ledger time, of a lower and upper bound of when this transaction will be valid. If a transaction is submitted too early or too late, it will fail to make it into the transaction set.
     ///
-    public init(sourceAccount:TransactionAccount, operations:[Operation], memo:Memo?, timeBounds:TimeBounds?) throws {
+    public init(sourceAccount:TransactionAccount, operations:[Operation], baseFee: Int = Transaction.defaultBaseFee, memo:Memo?, timeBounds:TimeBounds?) throws {
         
         if operations.count == 0 {
             throw StellarSDKError.invalidArgument(message: "At least one operation required")
@@ -42,6 +45,7 @@ public class Transaction {
         self.sourceAccount = sourceAccount
         self.operations = operations
         self.timeBounds = timeBounds
+        self.baseFee = baseFee
         self.fee = UInt32(operations.count * baseFee)
         self.memo = memo ?? Memo.none
         
@@ -52,6 +56,7 @@ public class Transaction {
         }
         
         self.transactionXDR = TransactionXDR(sourceAccount: self.sourceAccount.keyPair.publicKey,
+                                             baseFee: self.baseFee,
                                              seqNum: self.sourceAccount.incrementedSequenceNumber(),
                                              timeBounds: self.timeBounds?.toXdr(),
                                              memo: self.memo.toXDR(),

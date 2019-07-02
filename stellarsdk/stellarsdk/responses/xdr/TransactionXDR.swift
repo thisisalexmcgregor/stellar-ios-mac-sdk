@@ -19,14 +19,14 @@ public struct TransactionXDR: XDRCodable {
     
     private var signatures = [DecoratedSignatureXDR]()
     
-    public init(sourceAccount: PublicKey, seqNum: Int64, timeBounds: TimeBoundsXDR?, memo: MemoXDR, operations: [OperationXDR]) {
+    public init(sourceAccount: PublicKey, baseFee: Int = Transaction.defaultBaseFee, seqNum: Int64, timeBounds: TimeBoundsXDR?, memo: MemoXDR, operations: [OperationXDR]) {
         self.sourceAccount = sourceAccount
         self.seqNum = seqNum
         self.timeBounds = timeBounds
         self.memo = memo
         self.operations = operations
         
-        fee = UInt32(100 * operations.count)
+        fee = UInt32(baseFee * operations.count)
         reserved = 0
     }
     
