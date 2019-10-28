@@ -78,8 +78,14 @@ class OperationsLocalTestCase: XCTestCase {
                         XCTAssert(false)
                     }
                 case .pathPayment:
-                    if record is PathPaymentOperationResponse {
-                        validatePathPaymentOperationResponse(operationResponse: record as! PathPaymentOperationResponse)
+                    if record is PathPaymentStrictReceiveOperationResponse {
+                        validatePathPaymentOperationResponse(operationResponse: record as! PathPaymentStrictReceiveOperationResponse)
+                    } else {
+                        XCTAssert(false)
+                    }
+                case .pathPaymentStrictSend:
+                    if record is PathPaymentStrictSendOperationResponse {
+                        validatePathPaymentOperationResponse(operationResponse: record as! PathPaymentStrictSendOperationResponse)
                     } else {
                         XCTAssert(false)
                     }
@@ -714,6 +720,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 0,
                 "type": "create_account",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -747,6 +754,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 1,
                 "type": "payment",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -783,6 +791,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 2,
                 "type": "path_payment",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -821,6 +830,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 3,
                 "type": "manage_sell_offer",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -858,6 +868,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 12,
                 "type": "manage_buy_offer",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -895,6 +906,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 4,
                 "type": "create_passive_sell_offer",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -931,6 +943,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 5,
                 "type": "set_options",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -968,6 +981,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 6,
                 "type": "change_trust",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -1002,6 +1016,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 7,
                 "type": "allow_trust",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -1038,6 +1053,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 8,
                 "type": "account_merge",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -1070,6 +1086,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 9,
                 "type": "inflation",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -1100,6 +1117,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                 "id": "77309415424",
                 "paging_token": "77309415424",
+                "transaction_successful": true,
                 "type_i": 10,
                 "type": "manage_data",
                 "source_account": "GDWGJSTUVRNFTR7STPUUHFWQYAN6KBVWCZT2YN7MY276GCSSXSWPS6JY",
@@ -1131,6 +1149,7 @@ class OperationsLocalTestCase: XCTestCase {
                 },
                     "id": "1743756726273",
                     "paging_token": "1743756726273",
+                    "transaction_successful": true,
                     "source_account": "GBHPJ3VMVT3X7Y6HIIAPK7YPTZCF3CWO4557BKGX2GVO4O7EZHIBELLH",
                     "created_at": "2018-02-21T09:56:26Z",
                     "type": "bump_sequence",

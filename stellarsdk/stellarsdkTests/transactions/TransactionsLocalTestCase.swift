@@ -37,15 +37,19 @@ class TransactionsLocalTestCase: XCTestCase {
     }
     
     func testTransactionEnvelopeXDRStringInit() {
-        let xdrString = "AAAAAJ/Ax+axve53/7sXfQY0fI6jzBeHEcPl0Vsg1C2tqyRbAAAAZAAAAAAAAAAAAAAAAQAAAABb2L/OAAAAAFvYwPoAAAAAAAAAAQAAAAEAAAAAo7FW8r8Nj+SMwPPeAoL4aUkLob7QU68+9Y8CAia5k78AAAAKAAAAN0NJcDhiSHdnU2hUR042ZDE3bjg1ZlFGRVBKdmNtNFhnSWhVVFBuUUF4cUtORVd4V3JYIGF1dGgAAAAAAQAAAEDh/7kQjZbcXypISjto5NtGLuaDGrfL/F08apZQYp38JNMNQ9p/e1Fy0z23WOg/Ic+e91+hgbdTude6+1+i0V41AAAAAAAAAAGtqyRbAAAAQNeY1rEwPynWnVXaaE/XWeuRnOHS/479J+Eu7s5OplSlF41xB7E8u9WzEItaOs167xuOVcLZUKBCBF1fnfzMEQg="
+        let xdrString = "AAAAAGV+lDNEWJN2FhmJZgrrObjhhYYF80e+hc48z6KYhQxNAAAD6AAPsVkAAAAEAAAAAAAAAAAAAAABAAAAAQAAAABlfpQzRFiTdhYZiWYK6zm44YWGBfNHvoXOPM+imIUMTQAAAAEAAAAAHIfqDW5SWNoW2fFBEisLrHjuQunW8cRyaX5aF3NCNYoAAAAAAAAAAADk4cAAAAAAAAAAAZiFDE0AAABAxGFuP73x/OBT75+39J3k13/aos+h9yAvJErIlp9IoziNI02QsZAovmgVImdoGdo7FnslzirqzkZX3LVtych1Bw=="
         do {
             // method 1
             let transaction = try Transaction(envelopeXdr: xdrString)
+            let tFee = transaction.fee
+            XCTAssert(tFee == 1000)
             let encodedEnvelope = try transaction.encodedEnvelope()
             XCTAssertTrue(xdrString == encodedEnvelope)
             
             // method 2
             let envelope = try TransactionEnvelopeXDR(xdr:xdrString)
+            let fee = envelope.tx.fee
+            XCTAssert(fee == 1000)
             let envelopeString = envelope.xdrEncoded
             XCTAssertTrue(xdrString == envelopeString)
         } catch {
@@ -54,11 +58,14 @@ class TransactionsLocalTestCase: XCTestCase {
     }
     
     func testTransactionXDRStringInit() {
-        let xdrString = "AAAAAJ/Ax+axve53/7sXfQY0fI6jzBeHEcPl0Vsg1C2tqyRbAAAAZAAAAAAAAAAAAAAAAQAAAABb2L/OAAAAAFvYwPoAAAAAAAAAAQAAAAEAAAAAo7FW8r8Nj+SMwPPeAoL4aUkLob7QU68+9Y8CAia5k78AAAAKAAAAN0NJcDhiSHdnU2hUR042ZDE3bjg1ZlFGRVBKdmNtNFhnSWhVVFBuUUF4cUtORVd4V3JYIGF1dGgAAAAAAQAAAEDh/7kQjZbcXypISjto5NtGLuaDGrfL/F08apZQYp38JNMNQ9p/e1Fy0z23WOg/Ic+e91+hgbdTude6+1+i0V41AAAAAA=="
+        
+        let xdrString = "AAAAAGV+lDNEWJN2FhmJZgrrObjhhYYF80e+hc48z6KYhQxNAAAD6AAPsVkAAAAEAAAAAAAAAAAAAAABAAAAAQAAAABlfpQzRFiTdhYZiWYK6zm44YWGBfNHvoXOPM+imIUMTQAAAAEAAAAAHIfqDW5SWNoW2fFBEisLrHjuQunW8cRyaX5aF3NCNYoAAAAAAAAAAADk4cAAAAAA"
         do {
-            let envelope = try TransactionXDR(xdr:xdrString)
-            let envelopeString = envelope.xdrEncoded
-            XCTAssertTrue(xdrString == envelopeString)
+            let transaction = try TransactionXDR(xdr:xdrString)
+            let fee = transaction.fee
+            XCTAssert(fee == 1000)
+            let transactionXDRString = transaction.xdrEncoded
+            XCTAssertTrue(xdrString == transactionXDRString)
         } catch {
             XCTAssertTrue(false)
         }
@@ -143,7 +150,9 @@ class TransactionsLocalTestCase: XCTestCase {
             XCTAssertEqual(firstTransaction?.createdAt,createdAt)
             XCTAssertEqual(firstTransaction?.sourceAccount,"GAJNSTFWKUKRXAHMPWG6BM4ACWNIS57S47KQZZQGQCM6H4WTM7VQUFMN")
             XCTAssertEqual(firstTransaction?.sourceAccountSequence,"31398186618716187")
-            XCTAssertEqual(firstTransaction?.feePaid, 100)
+            XCTAssertEqual(firstTransaction?.feePaid, nil)
+            XCTAssertEqual(firstTransaction?.maxFee, 102)
+            XCTAssertEqual(firstTransaction?.feeCharged, 101)
             XCTAssertEqual(firstTransaction?.operationCount,1)
             // TODO xdrs
             XCTAssertEqual(firstTransaction?.memoType, "none")
@@ -187,6 +196,8 @@ class TransactionsLocalTestCase: XCTestCase {
                 XCTAssertEqual(secondTransaction?.sourceAccount,"GAJNSTFWKUKRXAHMPWG6BM4ACWNIS57S47KQZZQGQCM6H4WTM7VQUFMN")
                 XCTAssertEqual(secondTransaction?.sourceAccountSequence,"31398186618716186")
                 XCTAssertEqual(secondTransaction?.feePaid, 100)
+                XCTAssertEqual(secondTransaction?.maxFee, 100)
+                XCTAssertEqual(secondTransaction?.feeCharged, 100)
                 XCTAssertEqual(secondTransaction?.operationCount,1)
                 // TODO xdrs
                 XCTAssertEqual(secondTransaction?.memoType, "hash")
@@ -263,7 +274,8 @@ class TransactionsLocalTestCase: XCTestCase {
                     "created_at": "2018-02-21T15:16:05Z",
                     "source_account": "GAJNSTFWKUKRXAHMPWG6BM4ACWNIS57S47KQZZQGQCM6H4WTM7VQUFMN",
                     "source_account_sequence": "31398186618716187",
-                    "fee_paid": 100,
+                    "max_fee": 102,
+                    "fee_charged":101,
                     "operation_count": 1,
                     "envelope_xdr": "AAAAABLZTLZVFRuA7H2N4LOAFZqJd/Ln1QzmBoCZ4/LTZ+sKAAAAZABvjHwAAAAbAAAAAAAAAAAAAAABAAAAAAAAAAMAAAABRVVSAAAAAABWsKIm44ZManGkwOIyDdbzRjPLfb6ZrVXWOGIi9S2tRwAAAAJDVTEyMzQ1AAAAAAAAAAAAwjUbmH7LrvIY/NDZcKS9j6Dl/dg6KCJgC1GiKwWkdaMAAAAAL68IAAAAAAEAAAPoAAAAAAAAAAAAAAAAAAAAAdNn6woAAABAioDroKPUAZn2Pp4OTksPKmitQTZpsFSAN259vcI0E3YtCbOWUQkpOJV68myqgL62CPzK3YIsg+Kok4lQ6ys5Ag==",
                     "result_xdr": "AAAAAAAAAGQAAAAAAAAAAQAAAAAAAAADAAAAAAAAAAEAAAAAURqP8nUKuuavLDttwWMCdPjCAiTp+vu5leob71ZdvIAAAAAAAAGcvwAAAAJDVTEyMzQ1AAAAAAAAAAAAwjUbmH7LrvIY/NDZcKS9j6Dl/dg6KCJgC1GiKwWkdaMAAAAAAAw1AAAAAAFFVVIAAAAAAFawoibjhkxqcaTA4jIN1vNGM8t9vpmtVdY4YiL1La1HAAAAAC+vCAAAAAACAAAAAA==",
@@ -312,6 +324,8 @@ class TransactionsLocalTestCase: XCTestCase {
                     "source_account": "GAJNSTFWKUKRXAHMPWG6BM4ACWNIS57S47KQZZQGQCM6H4WTM7VQUFMN",
                     "source_account_sequence": "31398186618716186",
                     "fee_paid": 100,
+                    "max_fee": 100,
+                    "fee_charged":100,
                     "operation_count": 1,
                     "envelope_xdr": "AAAAABLZTLZVFRuA7H2N4LOAFZqJd/Ln1QzmBoCZ4/LTZ+sKAAAAZABvjHwAAAAaAAAAAAAAAAAAAAABAAAAAAAAAAYAAAACQ1UxMjM0NQAAAAAAAAAAAMI1G5h+y67yGPzQ2XCkvY+g5f3YOigiYAtRoisFpHWjAWNFeF2KAAAAAAAAAAAAAdNn6woAAABA9mofj/v3nFoJpHpImh/lmmV6C3zm0IISI62arI1MurcDkDzo43iR6pNBtPGxHlcYd1ZhOHWyaWGfFrYTsxarAA==",
                     "result_xdr": "AAAAAAAAAGQAAAAAAAAAAQAAAAAAAAAGAAAAAAAAAAA=",
