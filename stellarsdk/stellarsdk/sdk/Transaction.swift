@@ -35,6 +35,7 @@ public class Transaction {
     /// - Parameter baseFee: The base fee in `stroop`s to use for this transaction
     /// - Parameter memo: Optional. The memo contains optional extra information. It is the responsibility of the client to interpret this value.
     /// - Parameter timeBounds: Optional. The UNIX timestamp, determined by ledger time, of a lower and upper bound of when this transaction will be valid. If a transaction is submitted too early or too late, it will fail to make it into the transaction set.
+    /// - Parameter maxOperationFee: Optional. The maximum fee in stoops you are willing to pay per operation. If not set, it will default to the network base fee which is currently set to 100 stroops (0.00001 lumens). Transaction fee is equal to operation fee times number of operations in this transaction.
     ///
     public init(sourceAccount:TransactionAccount, operations:[Operation], baseFee: Int = Transaction.defaultBaseFee, memo:Memo?, timeBounds:TimeBounds?) throws {
         
@@ -60,7 +61,8 @@ public class Transaction {
                                              seqNum: self.sourceAccount.incrementedSequenceNumber(),
                                              timeBounds: self.timeBounds?.toXdr(),
                                              memo: self.memo.toXDR(),
-                                             operations: operationsXDR)
+                                             operations: operationsXDR,
+                                             maxOperationFee: maxOperationFee)
         
         self.sourceAccount.incrementSequenceNumber()
         
@@ -87,7 +89,7 @@ public class Transaction {
             timebounds = TimeBounds(timebounds: timeboundsXDR)
         }
         
-        try self.init(sourceAccount: transactionSourceAccount, operations: operations, memo: Memo(memoXDR:transactionXDR.memo), timeBounds: timebounds)
+        try self.init(sourceAccount: transactionSourceAccount, operations: operations, memo: Memo(memoXDR:transactionXDR.memo), timeBounds: timebounds, maxOperationFee: transactionXDR.fee)
     }
     
     /// Creates a new Transaction object from an Transaction Envelope XDR string.
@@ -111,7 +113,7 @@ public class Transaction {
             timebounds = TimeBounds(timebounds: timeboundsXDR)
         }
         
-        try self.init(sourceAccount: transactionSourceAccount, operations: operations, memo: Memo(memoXDR:transactionEnvelopeXDR.tx.memo), timeBounds: timebounds)
+        try self.init(sourceAccount: transactionSourceAccount, operations: operations, memo: Memo(memoXDR:transactionEnvelopeXDR.tx.memo), timeBounds: timebounds, maxOperationFee: transactionEnvelopeXDR.tx.fee)
         
         for signature in transactionEnvelopeXDR.signatures {
             self.transactionXDR.addSignature(signature: signature)
