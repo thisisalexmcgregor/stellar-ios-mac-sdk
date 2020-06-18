@@ -36,15 +36,14 @@ public class TransactionResponse: NSObject, Decodable {
     /// The current transaction sequence number of the source account.
     public var sourceAccountSequence:String
     
-    /// The fee paid by the source account of this transaction when the transaction was applied to the ledger.
-    @available(*, deprecated)
-    public var feePaid:Int?
-    
     /// Defines the maximum fee the source account is willing to pay.
-    public var maxFee:Int?
+    public var maxFee:String?
     
     /// Defines the fee that was actually paid for a transaction.
-    public var feeCharged:Int?
+    public var feeCharged:String?
+    
+    /// The account which paid the transaction fee
+    public var feeAccount:String
     
     /// The number of operations that are contained within this transaction.
     public var operationCount:Int
@@ -60,6 +59,9 @@ public class TransactionResponse: NSObject, Decodable {
     public var transactionResult: TransactionResultXDR
     public var transactionMeta: TransactionMetaXDR
     
+    public var feeBumpTransactionResponse:FeeBumpTransactionResponse?
+    public var innerTransactionResponse:InnerTransactionResponse?
+    
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case id
@@ -69,9 +71,9 @@ public class TransactionResponse: NSObject, Decodable {
         case createdAt = "created_at"
         case sourceAccount = "source_account"
         case sourceAccountSequence = "source_account_sequence"
-        case feePaid = "fee_paid"
         case maxFee = "max_fee"
         case feeCharged = "fee_charged"
+        case feeAccount = "fee_account"
         case operationCount = "operation_count"
         case memoType = "memo_type"
         case memo = "memo"
@@ -79,6 +81,8 @@ public class TransactionResponse: NSObject, Decodable {
         case envelopeXDR = "envelope_xdr"
         case transactionResult = "result_xdr"
         case transactionMeta = "result_meta_xdr"
+        case feeBumpTransaction = "fee_bump_transaction"
+        case innerTransaction = "inner_transaction"
     }
     
     public required init(from decoder: Decoder) throws {
@@ -91,9 +95,17 @@ public class TransactionResponse: NSObject, Decodable {
         createdAt = try values.decode(Date.self, forKey: .createdAt)
         sourceAccount = try values.decode(String.self, forKey: .sourceAccount)
         sourceAccountSequence = try values.decode(String.self, forKey: .sourceAccountSequence)
-        feePaid = try values.decodeIfPresent(Int.self, forKey: .feePaid)
-        maxFee = try values.decodeIfPresent(Int.self, forKey: .maxFee)
-        feeCharged = try values.decodeIfPresent(Int.self, forKey: .feeCharged)
+        feeAccount = try values.decode(String.self, forKey: .feeAccount)
+        if let makeFeeStr = try? values.decodeIfPresent(String.self, forKey: .maxFee) {
+            maxFee = makeFeeStr
+        } else if let makeFeeInt = try? values.decodeIfPresent(Int.self, forKey: .maxFee) {
+            maxFee = String(makeFeeInt)
+        }
+        if let feeChargedStr = try? values.decodeIfPresent(String.self, forKey: .feeCharged) {
+            feeCharged = feeChargedStr
+        } else if let feeChargedInt = try? values.decodeIfPresent(Int.self, forKey: .feeCharged) {
+            feeCharged = String(feeChargedInt)
+        }
         operationCount = try values.decode(Int.self, forKey: .operationCount)
         memoType = try values.decode(String.self, forKey: .memoType)
         
@@ -133,5 +145,9 @@ public class TransactionResponse: NSObject, Decodable {
         let encodedMeta = try values.decode(String.self, forKey: .transactionMeta)
         let metaData = Data(base64Encoded: encodedMeta)!
         transactionMeta = try XDRDecoder.decode(TransactionMetaXDR.self, data:metaData)
+        
+        feeBumpTransactionResponse = try values.decodeIfPresent(FeeBumpTransactionResponse.self, forKey: .feeBumpTransaction)
+        innerTransactionResponse = try values.decodeIfPresent(InnerTransactionResponse.self, forKey: .innerTransaction)
+
     }
 }

@@ -32,6 +32,19 @@ class KeyUtils: XCTestCase {
         }
     }
     
+    func testKeyUtilsMuxedAccountP() {
+        let accountId = "GBJRYVWMCM4IYZDEB7AUB7Q4IY64HLLWD5A3ZLONHDEDZ66YSU4IXS5N"
+        
+        do {
+            let mux = try accountId.decodeMuxedAccount()
+            let muxId = mux.accountId
+            
+            XCTAssertTrue(accountId == muxId)
+        } catch {
+            XCTAssertTrue(false)
+        }
+    }
+    
     func testKeyUtilsPrivateKey() {
         let publicKey = "SBXLH5ZCTJR2VKCDFKUQWP2WI4B5HKWDRQQ4TUZLFE47MQ4LZEAHCBLU"
         

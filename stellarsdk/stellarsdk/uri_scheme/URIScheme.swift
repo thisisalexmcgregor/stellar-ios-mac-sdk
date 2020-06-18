@@ -22,6 +22,7 @@ public enum SetupTransactionXDREnum {
 /// An enum used to differentiate between a successful and a failed transaction submission.
 public enum SubmitTransactionEnum {
     case success
+    case destinationRequiresMemo(destinationAccountId: String)
     case failure(error: HorizonRequestError)
 }
 
@@ -209,7 +210,7 @@ public class URIScheme: NSObject {
     }
     
     /// Sends the transaction to the network.
-    private func submitTransaction(transactionXDR: TransactionXDR?, callback: String? = nil, keyPair: KeyPair, completion: @escaping SubmitTransactionClosure) {
+    private func submitTransaction(transactionXDR: TransactionXDR?, callback: String? = nil, keyPair: KeyPair, skipMemoRequiredCheck:Bool = false, completion: @escaping SubmitTransactionClosure) {
         if let transactionEncodedEnvelope = try? transactionXDR?.encodedEnvelope() {
             if var callback = callback, callback.hasPrefix("uri:") {
                 callback = String(callback.dropLast(4))
@@ -225,10 +226,12 @@ public class URIScheme: NSObject {
                     }
                 }
             } else {
-                self.sdk.transactions.postTransaction(transactionEnvelope: transactionEncodedEnvelope, response: { (response) -> (Void) in
+                self.sdk.transactions.postTransaction(transactionEnvelope: transactionEncodedEnvelope, skipMemoRequiredCheck: skipMemoRequiredCheck, response: { (response) -> (Void) in
                     switch response {
                     case .success(_):
                         completion(.success)
+                    case .destinationRequiresMemo(let destinationAccountId):
+                        completion(.destinationRequiresMemo(destinationAccountId: destinationAccountId))
                     case .failure(let error):
                         completion(.failure(error: error))
                     }
@@ -261,7 +264,11 @@ public class URIScheme: NSObject {
         sdk.accounts.getAccountDetails(accountId: signerAccountID) { (response) -> (Void) in
             switch response {
             case .success(details: let accountDetails):
-                let reconfiguredTransactionXDR = TransactionXDR(sourceAccount: accountDetails.keyPair.publicKey,
+                var muxedAccount = MuxedAccountXDR.ed25519(accountDetails.keyPair.publicKey.bytes)
+                if let muxi = try? signerAccountID.decodeMuxedAccount() {
+                    muxedAccount = muxi
+                }
+                let reconfiguredTransactionXDR = TransactionXDR(sourceAccount: muxedAccount,
                                                             seqNum: accountDetails.incrementedSequenceNumber(),
                                                             timeBounds: transactionXDR.timeBounds,
                                                             memo: transactionXDR.memo,

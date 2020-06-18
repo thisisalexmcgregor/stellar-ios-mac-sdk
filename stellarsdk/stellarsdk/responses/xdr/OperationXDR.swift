@@ -9,10 +9,19 @@
 import Foundation
 
 public struct OperationXDR: XDRCodable {
-    public var sourceAccount: PublicKey?
+    public var sourceAccount: MuxedAccountXDR?
     public let body: OperationBodyXDR
     
+    @available(*, deprecated, message: "use init(sourceAccount: MuxedAccountXDR?, body: OperationBodyXDR) instead")
     public init(sourceAccount: PublicKey?, body: OperationBodyXDR) {
+        var mux:MuxedAccountXDR? = nil
+        if let sa = sourceAccount {
+            mux = MuxedAccountXDR.ed25519(sa.bytes)
+        }
+        self.init(sourceAccount: mux, body: body)
+    }
+    
+    public init(sourceAccount: MuxedAccountXDR?, body: OperationBodyXDR) {
         self.sourceAccount = sourceAccount
         self.body = body
     }
@@ -20,7 +29,7 @@ public struct OperationXDR: XDRCodable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         
-        sourceAccount = try decodeArray(type: PublicKey.self, dec: decoder).first
+        sourceAccount = try decodeArray(type: MuxedAccountXDR.self, dec: decoder).first
         body = try container.decode(OperationBodyXDR.self)
     }
     
@@ -31,7 +40,7 @@ public struct OperationXDR: XDRCodable {
             try container.encode([sourceAccount])
         }
         else {
-            try container.encode([PublicKey]())
+            try container.encode([MuxedAccountXDR]())
         }
         
         try container.encode(body)

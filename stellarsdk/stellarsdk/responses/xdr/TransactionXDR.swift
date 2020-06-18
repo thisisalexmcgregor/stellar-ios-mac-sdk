@@ -2,14 +2,14 @@
 //  TransactionXDR.swift
 //  stellarsdk
 //
-//  Created by Razvan Chelemen on 09/02/2018.
-//  Copyright © 2018 Soneso. All rights reserved.
+//  Created by SONESO
+//  Copyright © 2020 Soneso. All rights reserved.
 //
 
 import Foundation
 
 public struct TransactionXDR: XDRCodable {
-    public let sourceAccount: PublicKey
+    public let sourceAccount: MuxedAccountXDR
     public let fee: UInt32
     public let seqNum: Int64
     public let timeBounds: TimeBoundsXDR?
@@ -18,8 +18,12 @@ public struct TransactionXDR: XDRCodable {
     public let reserved: Int32
     
     private var signatures = [DecoratedSignatureXDR]()
-    
     public init(sourceAccount: PublicKey, seqNum: Int64, timeBounds: TimeBoundsXDR?, memo: MemoXDR, operations: [OperationXDR], maxOperationFee:UInt32 = Transaction.defaultBaseFee) {
+        let mux = MuxedAccountXDR.ed25519(sourceAccount.bytes)
+        self.init(sourceAccount: mux, seqNum: seqNum, timeBounds: timeBounds, memo: memo, operations: operations, maxOperationFee: maxOperationFee)
+    }
+    
+    public init(sourceAccount: MuxedAccountXDR, seqNum: Int64, timeBounds: TimeBoundsXDR?, memo: MemoXDR, operations: [OperationXDR], maxOperationFee:UInt32 = Transaction.defaultBaseFee) {
         self.sourceAccount = sourceAccount
         self.seqNum = seqNum
         self.timeBounds = timeBounds
@@ -33,7 +37,7 @@ public struct TransactionXDR: XDRCodable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         
-        sourceAccount = try container.decode(PublicKey.self)
+        sourceAccount = try container.decode(MuxedAccountXDR.self)
         fee = try container.decode(UInt32.self)
         seqNum = try container.decode(Int64.self)
         timeBounds = try decodeArray(type: TimeBoundsXDR.self, dec: decoder).first
@@ -70,7 +74,6 @@ public struct TransactionXDR: XDRCodable {
     
     private func signatureBase(network:Network) throws -> Data {
         let payload = TransactionSignaturePayload(networkId: WrappedData32(network.networkId), taggedTransaction: .typeTX(self))
-        
         return try Data(bytes: XDREncoder.encode(payload))
     }
     
@@ -82,10 +85,8 @@ public struct TransactionXDR: XDRCodable {
         guard !signatures.isEmpty else {
             throw StellarSDKError.invalidArgument(message: "Transaction must be signed by at least one signer. Use transaction.sign().")
         }
-        
-        let envelope = TransactionEnvelopeXDR(tx: self, signatures: signatures)
-        
-        return envelope
+        let envelopeV1 = TransactionV1EnvelopeXDR(tx: self, signatures: signatures)
+        return TransactionEnvelopeXDR.v1(envelopeV1)
     }
     
     public func encodedEnvelope() throws -> String {
@@ -95,4 +96,24 @@ public struct TransactionXDR: XDRCodable {
         return Data(bytes: &encodedEnvelope, count: encodedEnvelope.count).base64EncodedString()
     }
     
+    public func toEnvelopeV1XDR() throws -> TransactionV1EnvelopeXDR {
+        guard !signatures.isEmpty else {
+            throw StellarSDKError.invalidArgument(message: "Transaction must be signed by at least one signer. Use transaction.sign().")
+        }
+        
+        return TransactionV1EnvelopeXDR(tx: self, signatures: signatures)
+    }
+    
+    public func encodedV1Envelope() throws -> String {
+        let envelope = try toEnvelopeV1XDR()
+        var encodedEnvelope = try XDREncoder.encode(envelope)
+        
+        return Data(bytes: &encodedEnvelope, count: encodedEnvelope.count).base64EncodedString()
+    }
+    
+    public func encodedV1Transaction() throws -> String {
+        var encodedT = try XDREncoder.encode(self)
+        
+        return Data(bytes: &encodedT, count: encodedT.count).base64EncodedString()
+    }
 }
