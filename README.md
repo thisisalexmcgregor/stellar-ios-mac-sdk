@@ -19,7 +19,7 @@ To integrate stellar SDK into your Xcode project using CocoaPods, specify it in 
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'stellar-ios-mac-sdk', '~> 1.6.4'
+    pod 'stellar-ios-mac-sdk', '~> 1.8.5'
 end
 ```
 
@@ -562,7 +562,7 @@ uriBuilder.signTransaction(forURL: uri, signerKeyPair: keyPair, transactionConfi
 
 ### 8. Stellar Web Authentication
 
-This SEP defines the standard way for clients such as wallets or exchanges to create authenticated web sessions on behalf of a user who holds a Stellar account. A wallet may want to authenticate with any web service which requires a Stellar account ownership verification, for example, to upload KYC information to an anchor in an authenticated way as described in SEP-6.
+This SEP defines the standard way for clients such as wallets or exchanges to create authenticated web sessions on behalf of a user who holds a Stellar account. A wallet may want to authenticate with any web service which requires a Stellar account ownership verification, for example, to upload KYC information to an anchor in an authenticated way as described in SEP-6. Stellar Web Authentication is described in [SEP-0010](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md).
 
 #### 8.1 Get a JWT token.
 
@@ -570,7 +570,7 @@ Authenticate with a server and get a JWT token.
 
 ```swift
 // Hold a strong reference to this to avoid being deallocated
-let webAuthenticator = WebAuthenticator(authEndpoint: "http://your_api.stellar.org/auth", network: .testnet, serverSigningKey: "GBWMCCC3NHSKLAOJDBKKYW7SSH2PFTTNVFKWSGLWGDLEBKLOVP5JLBBP")
+let webAuthenticator = WebAuthenticator(authEndpoint: "http://your_api.stellar.org/auth", network: .testnet, serverSigningKey: "GBWMCCC3NHSKLAOJDBKKYW7SSH2PFTTNVFKWSGLWGDLEBKLOVP5JLBBP", serverHomeDomain: "yourserverhomedomain.com" )
     if let keyPair = try? KeyPair(secretSeed: "SBAYNYLQFXVLVAHW4BXDQYNJLMDQMZ5NQDDOHVJD3PTBAUIJRNRK5LGX") {
         webAuthenticator.jwtToken(forKeyPair: keyPair) { (response) -> (Void) in
             switch response {
@@ -584,15 +584,31 @@ let webAuthenticator = WebAuthenticator(authEndpoint: "http://your_api.stellar.o
 }
 ```
 
+#### 8.2 Create WebAuthenticator from stellar.toml
+
+Creates the WebAuthenticator by loading the web auth endpoint and the server signing key from the stellar.toml file of the given domain.
+
+```swift
+
+let webAuthenticator = WebAuthenticator.from(domain:"yourserverhomedomain.com", network: .testnet)
+
+```
+The Web Authenticator can now be used to get the JWT token (see: 8.1)
+
+
+### 9.  Txrep: human-readable low-level representation of Stellar transactions
+Txrep: human-readable low-level representation of Stellar transactions is described in [SEP-0011](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0011.md).
+
+For more details have a look to our [Txrep examples](docs/SEP-0011.md)
+
+
 ## Documentation and Examples
 
 You can find more documentation and examples in the [docs](https://github.com/Soneso/stellar-ios-mac-sdk/tree/master/docs) folder.
 
-## Samples
+## Sample
 
-The [Lumenshine](https://lumenshine.com) wallet for iOS is an [open source project](https://github.com/Soneso/lumenshine-iOS-wallet) developed and maintained by [Soneso](https://soneso.com), the creators and maintainers of this SDK. Lumenshine is currently available for [iOS](https://itunes.apple.com/us/app/lumenshine/id1441524975) and for [web](https://lumenshine.com).
-
-Another open source project that uses our SDK is the [BlockEQ iOS wallet](https://github.com/Block-Equity/stellar-ios-wallet) for Stellar.
+An open source project that uses our SDK is the [BlockEQ iOS wallet](https://github.com/Block-Equity/stellar-ios-wallet) for Stellar.
 
 ## Stellar Ecosystem Proposals (SEPs) implemented
 
@@ -603,6 +619,7 @@ Another open source project that uses our SDK is the [BlockEQ iOS wallet](https:
 - [SEP-0007](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0007.md) - URI Scheme to facilitate delegated signing
 - [SEP-0009](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0009.md) - Standard KYC / AML fields
 - [SEP-0010](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md) - Stellar Web Authentication
+- [SEP-0011](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0011.md) - Txrep
 - [SEP-0012](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0012.md) - Anchor/Client customer info transfer
 
 ## How to contribute

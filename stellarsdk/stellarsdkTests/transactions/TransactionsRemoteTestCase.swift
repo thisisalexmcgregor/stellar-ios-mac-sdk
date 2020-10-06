@@ -11,7 +11,7 @@ import stellarsdk
 
 class TransactionsRemoteTestCase: XCTestCase {
     let sdk = StellarSDK()
-    let seed = "SD24I54ZUAYGZCKVQD6DZD6PQGLU7UQKVWDM37TKIACO3P47WG3BRW4C"
+    let seed = "SC5DJLUVRNNYR3M4IZUHJKYHKWLEYXTI6IZ2CZCGS45IIBNLVCFJFVW7"
     var streamItem:TransactionsStreamItem? = nil
     
     override func setUp() {
@@ -94,7 +94,7 @@ class TransactionsRemoteTestCase: XCTestCase {
     func testGetTransactionsForLedger() {
         let expectation = XCTestExpectation(description: "Get transactions for ledger")
         
-        sdk.transactions.getTransactions(forLedger: "1") { (response) -> (Void) in
+        sdk.transactions.getTransactions(forLedger: "19") { (response) -> (Void) in
             switch response {
             case .success(_):
                 XCTAssert(true)
@@ -112,7 +112,7 @@ class TransactionsRemoteTestCase: XCTestCase {
     func testGetTransactionDetails() {
         let expectation = XCTestExpectation(description: "Get transaction details")
         
-        sdk.transactions.getTransactionDetails(transactionHash: "ed1dc9a219d5e8292a29b1b5c580b98fba0066aeb96fcd45a290fb68ff0b70bb") { (response) -> (Void) in
+        sdk.transactions.getTransactionDetails(transactionHash: "ed371e9079494a36b320e8ac35b03417846a20c38179c16700df04b99c884cc1") { (response) -> (Void) in
             switch response {
             case .success(_):
                 XCTAssert(true)
@@ -675,6 +675,48 @@ class TransactionsRemoteTestCase: XCTestCase {
             expectation.fulfill()
         }
         
+        wait(for: [expectation], timeout: 15.0)
+    }
+
+    func testCompareTransactionMemoHash() {
+        let expectation = XCTestExpectation(description: "Get right memo")
+        sdk.transactions.getTransactionDetails(transactionHash: "d50158208f1b0436d7bf99f8ecc2c15f1933e1bcd1c2a91479e29108c9cba61a") { (response) -> (Void) in
+            switch response {
+            case .success(let transactionsResponse):
+                let memo1 = transactionsResponse.memo!.toXDR().xdrEncoded!
+                let memo = try! Memo(hash: "000000000000000000000000000000002fbf727695e5431783cf6cbcef3864e1".data(using: .hexadecimal)!)
+                let memo2 = memo!.toXDR().xdrEncoded!
+                if memo1 == memo2 {
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+                expectation.fulfill()
+            case .failure(let error):
+                StellarSDKLog.printHorizonRequestErrorMessage(tag:"HMO Test", horizonRequestError: error)
+                XCTAssert(false)
+            }
+        }
+        wait(for: [expectation], timeout: 15.0)
+    }
+    
+    func testCompareTransactionMemoHash2() {
+        let expectation = XCTestExpectation(description: "Get right memo")
+        sdk.transactions.getTransactionDetails(transactionHash: "d50158208f1b0436d7bf99f8ecc2c15f1933e1bcd1c2a91479e29108c9cba61a") { (response) -> (Void) in
+            switch response {
+            case .success(let transactionsResponse):
+                let myHexMemo = "000000000000000000000000000000002fbf727695e5431783cf6cbcef3864e1";
+                if let txMemo = try? transactionsResponse.memo?.hexValue(), txMemo == myHexMemo {
+                    print ("BINGO!")
+                    XCTAssert(true)
+                } else {
+                   XCTAssert(false)
+                }
+                expectation.fulfill()
+            case .failure(let error):
+                StellarSDKLog.printHorizonRequestErrorMessage(tag:"HMO2 Test", horizonRequestError: error)
+            }
+        }
         wait(for: [expectation], timeout: 15.0)
     }
 }

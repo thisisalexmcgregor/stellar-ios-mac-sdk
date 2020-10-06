@@ -15,6 +15,7 @@ public struct EnvelopeType {
     static let ENVELOPE_TYPE_AUTH: Int32 = 3
     static let ENVELOPE_TYPE_SCPVALUE: Int32 = 4
     static let ENVELOPE_TYPE_TX_FEE_BUMP: Int32 = 5
+    static let ENVELOPE_TYPE_OP_ID: Int32 = 6
 }
 
 public enum TransactionEnvelopeXDR: XDRCodable {
@@ -70,6 +71,22 @@ public enum TransactionEnvelopeXDR: XDRCodable {
                 switch tevf.tx.innerTx {
                 case .v1(let tev1):
                    return tev1.txSourceAccountId
+                }
+            }
+        }
+    }
+    
+    public var txMuxedSourceId: UInt64? {
+        get {
+            switch self {
+            case .v0(_):
+                return nil
+            case .v1(let tev1):
+                return tev1.tx.sourceAccount.id
+            case .feeBump(let tevf):
+                switch tevf.tx.innerTx {
+                case .v1(let tev1):
+                    return tev1.tx.sourceAccount.id
                 }
             }
         }
