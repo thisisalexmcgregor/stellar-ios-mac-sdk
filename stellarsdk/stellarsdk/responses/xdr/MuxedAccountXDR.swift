@@ -38,13 +38,42 @@ public enum MuxedAccountXDR: XDRCodable {
     }
     
     /// Human readable Stellar ed25519 account ID.
-    public var accountId: String {
+    public var ed25519AccountId: String {
         get {
             switch self {
             case .ed25519(let bytes):
                 return PublicKey(unchecked: bytes).accountId
             case .med25519(let m):
                 return PublicKey(unchecked: m.sourceAccountEd25519).accountId
+            }
+        }
+    }
+    
+    /// Human readable Stellar ed25519 or med25519 account ID.
+    public var accountId: String {
+        get {
+            switch self {
+            case .ed25519(let bytes):
+                return PublicKey(unchecked: bytes).accountId
+            case .med25519(_):
+                do {
+                    var muxEncoded = try XDREncoder.encode(self)
+                    let muxData = Data(bytes: &muxEncoded, count: muxEncoded.count)
+                    return try muxData.encodeMuxedAccount()
+                } catch {
+                    return ""
+                }
+            }
+        }
+    }
+    
+    public var id: UInt64? {
+        get {
+            switch self {
+            case .ed25519(_):
+                return nil
+            case .med25519(let m):
+                return m.id
             }
         }
     }
